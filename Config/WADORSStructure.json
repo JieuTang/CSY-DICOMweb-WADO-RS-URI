@@ -1,0 +1,28 @@
+{
+    "Description": {
+        "ServerURL": "{s}",
+        "StudyInstanceUID": "{study}",
+        "SeriesInstanceUID": "{series}",
+        "SOPInstanceUID": "{instance}",
+        "IndexOfFramesStartByOne": "{frames}"
+    },
+    "Study": {
+        "Entire": "{s}/studies/{study}",
+        "Rendered": "{s}/studies/{study}/rendered",
+        "Metadata": "{s}/studies/{study}/series"
+    },
+    "Series": {
+        "Entire": "{s}/studies/{study}/series/{series}",
+        "Rendered": "{s}/studies/{study}/series/{series}/rendered",
+        "Metadata": "{s}/studies/{study}/series/{series}/metadata"
+    },
+    "Instance": {
+        "Entire": "{s}/studies/{study}/series/{series}/instances/{instance}",
+        "Rendered": "{s}/studies/{study}/series/{series}/instances/{instance}/rendered",
+        "Metadata": "{s}/studies/{study}/series/{series}/instances/{instance}/metadata"
+    },
+    "Frame": {
+        "Rendered": "{s}/studies/{study}/series/{series}/instances/{instance}/frames/{frames}/rendered"
+    }
+}
+

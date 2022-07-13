@@ -1,5 +1,4 @@
 {
-    "studies" : "studies",
-    "series" : "series",
-    "instances" : "instances"
+    "rs" : "rs",
+    "uri" : "uri"
 }

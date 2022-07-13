@@ -1,0 +1,25 @@
+{
+    "Description": {
+        "ServerURL": "{s}",
+        "StudyInstanceUID": "{study}",
+        "SeriesInstanceUID": "{series}",
+        "SOPInstanceUID": "{instance}",
+        "IndexOfFramesStartByOne": "{frames}"
+    },
+    "Study": {
+        "Entire": "{s}/wado?requestType=WADO/&studyUID={study}",
+        "Metadata": "{s}/studies/{study}/series"
+    },
+    "Series": {
+        "Entire": "{s}/wado?requestType=WADO/&studyUID={study}&seriesUID={series}",
+        "Metadata": "{s}/studies/{study}/series/{series}/metadata"
+    },
+    "Instance": {
+        "Entire": "{s}/wado?requestType=WADO/&studyUID={study}&seriesUID={series}&objectUID={instance}",
+        "Metadata": "{s}/studies/{study}/series/{series}/instances/{instance}/metadata"
+    },
+    "Frame": {
+        "Rendered": "{s}/wado?requestType=WADO/&studyUID={study}&seriesUID={series}&objectUID={instance}&frameNumber={frames}&contentType=image/jpeg"
+    }
+}
+

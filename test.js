@@ -1,32 +1,44 @@
-import QIDO from "./DICOMwebQIDORS.js";
+//引入套件
+import WADO from "./DICOMwebWADORSURI.js";
 
-let qido = new QIDO();
+//實體化
+let wado = new WADO();
 
 (async function () {
-    
-    await qido.init();
-    
-    qido.queryMode = "studies";
-    qido.hostname = "test.dicom.tw";
-    qido.pathname = "/dicomWeb";
-    qido.protocol = "http";
-    qido.port = "999";
+    //"必須"自己初始化
+    await wado.init();
 
+    //查詢模式設定：rs、uri
+    wado.queryMode = "rs";
+
+    //查詢階層設定：studies、series、instances
+    // wado.queryLevel = "studies";
+
+    //有使用到的套件參數設定：url-parse package
+    wado.hostname = "test.dicom.tw";
+    wado.pathname = "/dicomWeb";
+    wado.protocol = "http";
+    wado.port = "999";
+
+    //WADO-RS 的 StudyInstanceUID
     let tempQueryParameter = {};
+    tempQueryParameter.StudyInstanceUID = '1.3.46.670589.45.1.1.4993912214784.1.5436.1538560373543';
 
-    tempQueryParameter.PatientID = '*';
-    tempQueryParameter.limit = "10";
-    tempQueryParameter.offset = "0";
+    //查詢參數用物件套入
+    wado.queryParameter = tempQueryParameter;
 
-    qido.queryParameter = tempQueryParameter;
-
+    //設定 Token:現在尚未啟用
     // let myHeaders = {};
 
     // myHeaders.token = "jf903j2vunf9843nvyf934qc";
     // await qido.setUseToken(myHeaders);
 
-    await qido.query();
-    console.log(qido.response);
+    //取得 此 StudyInstanceUID 底下的所有 URL
+    //Study : entireStudy、renderedStudy、studyMetadata
+    //Series : entireSeries、renderedSeries、seriesMetadata
+    //Instances : entireInstance、renderedInstance、instanceMetadata
+    //Frames : renderedFrame
+    await wado.renderQueryUrl();
 })();
 
 
