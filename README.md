@@ -27,7 +27,7 @@ await wado.init();
 wado.queryMode = "rs";
 
 //查詢階層設定：studies、series、instances
-wado.queryLevel = "studies";
+// wado.queryLevel = "studies";
 
 //有使用到的套件參數設定：url-parse package
 wado.hostname = "test.dicom.tw";
