@@ -1,5 +1,5 @@
 # CSY-DICOMweb-WADO-RS-URI
-This is a private repository to generate the URL and to request to PACS for DICOMweb WADO-RS/URI.
+This private repository generates the URL and requests to PACS for DICOMweb WADO-RS/URI.
 
 ## DICOM WADO
 ### DICOMweb WADO-RS
