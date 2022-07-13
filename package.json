@@ -1,0 +1,46 @@
+{
+  "name": "csy-dicomweb-wado-rs-uri",
+  "version": "0.1.0",
+  "description": "This is a private repository to generate the URL and to request to PACS for DICOMweb WADO-RS/URI.",
+  "main": "test.js",
+  "type": "module",
+  "scripts": {
+    "release": "npx standard-version",
+    "release-major": "npx standard-version --release-as major",
+    "release-minor": "npx standard-version --release-as minor",
+    "release-patch": "npx standard-version --release-as patch",
+    "commit": "npx cz"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JieuTang/CSY-DICOMweb-WADO-RS-URI.git"
+  },
+  "keywords": [
+    "DICOM",
+    "DICOMweb",
+    "WADO-RS",
+    "WADO-URI"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JieuTang/CSY-DICOMweb-WADO-RS-URI/issues"
+  },
+  "homepage": "https://github.com/JieuTang/CSY-DICOMweb-WADO-RS-URI#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^8.0.1"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "node-fetch": "^3.2.7",
+    "url-parse": "^1.5.10"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
