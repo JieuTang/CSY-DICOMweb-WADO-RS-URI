@@ -1,47 +1,46 @@
-# CSY-DICOMweb-QIDO-RS
-This is a private repository to generate the URL and to request to PACS for DICOMweb QIDO-RS.
+# CSY-DICOMweb-WADO-RS-URI
+This is a private repository to generate the URL and to request to PACS for DICOMweb WADO-RS/URI.
 
-## DICOM QIDO Parameter
-### Required Matching Attributes
-> https://dicom.nema.org/medical/dicom/current/output/chtml/part18/sect_10.6.html
-DICOM PS3.18 2022b => 10.6 Search Transaction => Table 10.6.1-5. Required Matching Attributes
-> https://dicom.nema.org/medical/dicom/2022b/output/chtml/part18/sect_10.6.html
-DICOM PS3.18 2022b => 10.6 Search Transaction => Table 10.6.1-5. Required Matching Attributes
+## DICOM WADO
+### DICOMweb WADO-RS
+> https://www.dicomstandard.org/using/dicomweb/retrieve-wado-rs-and-wado-uri/
+> https://dicom.nema.org/medical/dicom/current/output/chtml/part18/sect_10.4.html
+DICOM PS3.18 2022b => 10.4 Retrieve Transaction
 
-### Query Parameter Syntax (Terminology)
-> https://dicom.nema.org/medical/dicom/current/output/chtml/part18/sect_8.3.4.html#sect_8.3.4.1
-DICOM PS3.18 2022b => 8.3 Query Parameters => Table 8.3.4-1. Query Parameter Syntax
-> https://dicom.nema.org/medical/dicom/2022b/output/chtml/part18/sect_8.3.4.html#sect_8.3.4.1
-DICOM PS3.18 2022b => 8.3 Query Parameters => Table 8.3.4-1. Query Parameter Syntax
+### DICOMweb WADO-URI
+> https://dicom.nema.org/medical/dicom/current/output/chtml/part18/chapter_9.html
+DICOM PS3.18 2022b => 9 URI Service
+
 
 # How to use
 ```javascript
 //引入套件
-import QIDO from "csy-dicomweb-qido-rs";
+import WADO from "csy-dicomweb-wado-rs-uri";
 
 //實體化
-let qido = new QIDO();
+let wado = new WADO();
 
 //"必須"自己初始化
-await qido.init();
+await wado.init();
 
-//查詢模式設定：studies、series、instances
-qido.queryMode = "studies";
+//查詢模式設定：rs、uri
+wado.queryMode = "rs";
+
+//查詢階層設定：studies、series、instances
+wado.queryLevel = "studies";
 
 //有使用到的套件參數設定：url-parse package
-qido.hostname = "test.dicom.tw";
-qido.pathname = "/dicomWeb";
-qido.protocol = "http";
-qido.port = "999";
+wado.hostname = "test.dicom.tw";
+wado.pathname = "/dicomWeb";
+wado.protocol = "http";
+wado.port = "999";
 
-//查詢參數設定：DICOM QIDO-RS Parameter
+//WADO-RS 的 StudyInstanceUID
 let tempQueryParameter = {};
-tempQueryParameter.PatientID = '*';
-tempQueryParameter.limit = "10";
-tempQueryParameter.offset = "0";
+tempQueryParameter.StudyInstanceUID = '1.3.46.670589.45.1.1.4993912214784.1.5436.1538560373543';
 
 //查詢參數用物件套入
-qido.queryParameter = tempQueryParameter;
+wado.queryParameter = tempQueryParameter;
 
 //設定 Token:現在尚未啟用
 // let myHeaders = {};
@@ -49,9 +48,13 @@ qido.queryParameter = tempQueryParameter;
 // myHeaders.token = "jf903j2vunf9843nvyf934qc";
 // await qido.setUseToken(myHeaders);
 
-//查詢 同步模式
-await qido.query();
+//取得 此 StudyInstanceUID 底下的所有 URL
+//Study : entireStudy、renderedStudy、studyMetadata
+//Series : entireSeries、renderedSeries、seriesMetadata
+//Instances : entireInstance、renderedInstance、instanceMetadata
+//Frames : renderedFrame
+await wado.renderQueryUrl();
 
-//印出 response: json
-console.log(qido.response);
+
+
 ```
