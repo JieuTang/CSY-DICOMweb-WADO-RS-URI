@@ -19,13 +19,7 @@ let wado = new WADO();
     wado.pathname = "/dicomWeb";
     wado.protocol = "http";
     wado.port = "999";
-
-    //WADO-RS 的 StudyInstanceUID
-    let tempQueryParameter = {};
-    tempQueryParameter.StudyInstanceUID = '1.3.46.670589.45.1.1.4993912214784.1.5436.1538560373543';
-
-    //查詢參數用物件套入
-    wado.queryParameter = tempQueryParameter;
+    wado.studyInstanceUID = '1.3.46.670589.45.1.1.4993912214784.1.5436.1538560373543';
 
     //設定 Token:現在尚未啟用
     // let myHeaders = {};
@@ -38,7 +32,11 @@ let wado = new WADO();
     //Series : entireSeries、renderedSeries、seriesMetadata
     //Instances : entireInstance、renderedInstance、instanceMetadata
     //Frames : renderedFrame
+    
     await wado.renderQueryUrl();
+
+
+    // console.log(wado.wadoParameter);
 })();
 
 

@@ -1,10 +1,10 @@
 {
     "Description": {
-        "ServerURL": "{s}",
-        "StudyInstanceUID": "{study}",
-        "SeriesInstanceUID": "{series}",
-        "SOPInstanceUID": "{instance}",
-        "IndexOfFramesStartByOne": "{frames}"
+        "{s}": "ServerURL",
+        "{study}": "StudyInstanceUID",
+        "{series}": "SeriesInstanceUID",
+        "{instance}": "SOPInstanceUID",
+        "{frames}": "IndexOfFramesStartByOne"
     },
     "Study": {
         "Entire": "{s}/wado?requestType=WADO/&studyUID={study}",
