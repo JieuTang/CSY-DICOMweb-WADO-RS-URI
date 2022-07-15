@@ -7,22 +7,22 @@
         "{frames}": "IndexOfFramesStartByOne"
     },
     "Study": {
-        "Entire": "{s}/studies/{study}",
-        "Rendered": "{s}/studies/{study}/rendered",
-        "Metadata": "{s}/studies/{study}/series"
+        "EntireURL": "{s}/studies/{study}",
+        "RenderedURL": "{s}/studies/{study}/rendered",
+        "MetadataURL": "{s}/studies/{study}/series"
     },
     "Series": {
-        "Entire": "{s}/studies/{study}/series/{series}",
-        "Rendered": "{s}/studies/{study}/series/{series}/rendered",
-        "Metadata": "{s}/studies/{study}/series/{series}/metadata"
+        "EntireURL": "{s}/studies/{study}/series/{series}",
+        "RenderedURL": "{s}/studies/{study}/series/{series}/rendered",
+        "MetadataURL": "{s}/studies/{study}/series/{series}/metadata"
     },
     "Instance": {
-        "Entire": "{s}/studies/{study}/series/{series}/instances/{instance}",
-        "Rendered": "{s}/studies/{study}/series/{series}/instances/{instance}/rendered",
-        "Metadata": "{s}/studies/{study}/series/{series}/instances/{instance}/metadata"
+        "EntireURL": "{s}/studies/{study}/series/{series}/instances/{instance}",
+        "RenderedURL": "{s}/studies/{study}/series/{series}/instances/{instance}/rendered",
+        "MetadataURL": "{s}/studies/{study}/series/{series}/instances/{instance}/metadata"
     },
     "Frame": {
-        "Rendered": "{s}/studies/{study}/series/{series}/instances/{instance}/frames/{frames}/rendered"
+        "RenderedURL": "{s}/studies/{study}/series/{series}/instances/{instance}/frames/{frames}/rendered"
     }
 }
 

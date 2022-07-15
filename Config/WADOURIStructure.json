@@ -7,19 +7,19 @@
         "{frames}": "IndexOfFramesStartByOne"
     },
     "Study": {
-        "Entire": "{s}/wado?requestType=WADO/&studyUID={study}",
-        "Metadata": "{s}/studies/{study}/series"
+        "EntireURL": "{s}/wado?requestType=WADO/&studyUID={study}",
+        "MetadataURL": "{s}/studies/{study}/series"
     },
     "Series": {
-        "Entire": "{s}/wado?requestType=WADO/&studyUID={study}&seriesUID={series}",
-        "Metadata": "{s}/studies/{study}/series/{series}/metadata"
+        "EntireURL": "{s}/wado?requestType=WADO/&studyUID={study}&seriesUID={series}",
+        "MetadataURL": "{s}/studies/{study}/series/{series}/metadata"
     },
     "Instance": {
-        "Entire": "{s}/wado?requestType=WADO/&studyUID={study}&seriesUID={series}&objectUID={instance}",
-        "Metadata": "{s}/studies/{study}/series/{series}/instances/{instance}/metadata"
+        "EntireURL": "{s}/wado?requestType=WADO/&studyUID={study}&seriesUID={series}&objectUID={instance}",
+        "MetadataURL": "{s}/studies/{study}/series/{series}/instances/{instance}/metadata"
     },
     "Frame": {
-        "Rendered": "{s}/wado?requestType=WADO/&studyUID={study}&seriesUID={series}&objectUID={instance}&frameNumber={frames}&contentType=image/jpeg"
+        "RenderedURL": "{s}/wado?requestType=WADO/&studyUID={study}&seriesUID={series}&objectUID={instance}&frameNumber={frames}&contentType=image/jpeg"
     }
 }
 
