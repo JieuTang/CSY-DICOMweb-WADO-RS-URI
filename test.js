@@ -12,7 +12,7 @@ let wado = new WADO();
     // wado.queryLevel = "studies";
 
     //有使用到的套件參數設定：url-parse package
-    wado.hostname = "hackathon.raccoon.dicom.tw";
+    wado.hostname = "test.dicom.tw";
     wado.pathname = "/dicom-web";
     wado.protocol = "https";
     wado.port = "443";
