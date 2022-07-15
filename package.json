@@ -1,6 +1,6 @@
 {
   "name": "csy-dicomweb-wado-rs-uri",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "This private repository generates the URL and requests to PACS for DICOMweb WADO-RS/URI.",
   "main": "DICOMwebWADORSURI.js",
   "type": "module",
