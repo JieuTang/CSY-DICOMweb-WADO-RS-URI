@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/JieuTang/CSY-DICOMweb-WADO-RS-URI/compare/v0.2.0...v0.3.0) (2022-07-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* querySeries(); Only Search to Series level data.
+renderSpecificSeries(seriesInstanceUID); Only Search Specific Series and all level below Series.
+renderAllSeries(); get all level data by StudyInstanceUID.
+
+### Features
+
+* can use this package to do WADO-RS ([d7055d3](https://github.com/JieuTang/CSY-DICOMweb-WADO-RS-URI/commit/d7055d3be699021f8218c6ef482ab4e672b3627b))
+
 ## [0.2.0](https://github.com/JieuTang/CSY-DICOMweb-WADO-RS-URI/compare/v0.1.8...v0.2.0) (2022-07-17)
 
 
