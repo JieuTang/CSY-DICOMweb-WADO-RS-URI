@@ -1,5 +1,7 @@
 //引入套件
+import _ from "lodash";
 import WADO from "./DICOMwebWADORSURI.js";
+import fs from "fs";
 
 //實體化
 let wado = new WADO();
@@ -25,19 +27,14 @@ let wado = new WADO();
 
     //"必須"自己初始化
     await wado.init();
-    console.log(wado.response);
 
-    //取得 此 StudyInstanceUID 底下的所有 URL
-    //Study : entireStudy、renderedStudy、studyMetadata
-    //Series : entireSeries、renderedSeries、seriesMetadata
-    //Instances : entireInstance、renderedInstance、instanceMetadata
-    //Frames : renderedFrame
+    //只查詢到 Series
+    await wado.querySeriesByStudy();
     
-    // await wado.renderQueryUrl();
-    
-    // console.log(wado.descriptionParameter);
-
-    // console.log(wado.wadoParameter);
+    //查詢 Series 底下所有的 Instance 還有底下所有的 Frame
+    await wado.queryInstanceBySeries();
+    // console.log(wado.response);
+    // fs.writeFile("response.json", JSON.stringify(wado.response), (err) => { if (err) throw err; });
 })();
 
 

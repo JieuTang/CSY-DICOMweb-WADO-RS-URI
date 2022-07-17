@@ -4,7 +4,7 @@
         "{study}": "StudyInstanceUID",
         "{series}": "SeriesInstanceUID",
         "{instance}": "SOPInstanceUID",
-        "{frames}": "IndexOfFramesStartByOne"
+        "{frames}": "NumberOfFrames"
     },
     "Study": {
         "EntireURL": "{s}/studies/{study}",
