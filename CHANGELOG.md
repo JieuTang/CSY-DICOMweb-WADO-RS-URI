@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/JieuTang/CSY-DICOMweb-WADO-RS-URI/compare/v0.1.8...v0.2.0) (2022-07-17)
+
+
+### Features
+
+* can query to all instance and frame ([8be1812](https://github.com/JieuTang/CSY-DICOMweb-WADO-RS-URI/commit/8be18123353af1e446dbcf3cfedbbaaaa083a359))
+
 ### [0.1.8](https://github.com/JieuTang/CSY-DICOMweb-WADO-RS-URI/compare/v0.1.7...v0.1.8) (2022-07-15)
 
 ### [0.1.7](https://github.com/JieuTang/CSY-DICOMweb-WADO-RS-URI/compare/v0.1.6...v0.1.7) (2022-07-15)
