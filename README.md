@@ -41,11 +41,16 @@ wado.studyInstanceUID = '1.3.46.670589.45.1.1.4993912214784.1.5436.1538560373543
 await wado.init();
 
 //只查詢到 Series
-await wado.querySeriesByStudy();
+// await wado.querySeries();
 
-//查詢 Series 底下所有的 Instance 還有底下所有的 Frame
-await wado.queryInstanceBySeries();
+//只渲染指定的 Series 底下的所有 URL
+// let seriesInstanceUID = "1.3.46.670589.45.1.1.4993912214784.1.5436.1538560606509.3";
+// await wado.renderSpecificSeries(seriesInstanceUID);
 
+//渲染全 Series 底下的所有 URL
+await wado.renderAllSeries();
+
+// fs.writeFile("response.json", JSON.stringify(wado.response), (err) => { if (err) throw err; });
 
 
 ```
