@@ -1,4 +1,4 @@
-{
+export default {
     "Patient": {
         "StudyInstanceUID": "0020000D"
     },

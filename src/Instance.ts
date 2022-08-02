@@ -1,9 +1,23 @@
 import _ from "lodash";
-import fetch from 'node-fetch';
-import Frame from "./Frame.js";
+import axios, { AxiosRequestHeaders } from "axios";
+import Frame from "./Frame";
 
 class Instance {
-    constructor(parameter, queryMode, uid) {
+
+    uid: string = "";
+    parameter: object = {};
+    queryMode: string = "";
+    url: object = {};
+
+    isUseToken: boolean = false;
+    tokenObject: object | null = null;
+
+    metadata: object | null | undefined = null;
+    codeOfNumberOfFrames: string = "";
+    Frames: Frame[] | null = null;
+
+
+    constructor(parameter: object, queryMode: string, uid: string) {
         this.uid = uid;
 
         this.parameter = _.assign(parameter, { "{instance}": uid });
@@ -24,7 +38,7 @@ class Instance {
 
         this.isUseToken = false;
         this.tokenObject = null;
-        
+
         this.metadata = null;
 
         this.codeOfNumberOfFrames = "00280008";
@@ -40,19 +54,17 @@ class Instance {
     }
 
     async _getFrames() {
-        let result = [];
+        const result = [];
 
-        let numberOfFrame = _.first(_.get(_.get(this.metadata, this.codeOfNumberOfFrames), "Value"));
+        const numberOfFrame = _.toInteger(_.first(_.get(_.get(this.metadata, this.codeOfNumberOfFrames), "Value")));
 
         for (let i = 1; i <= numberOfFrame; i++) {
-            let tempObject = undefined;
-            tempObject = new Frame(this.parameter, this.queryMode, i);
+            let tempObject;
+            tempObject = new Frame(this.parameter, this.queryMode, i.toString());
             await tempObject.init();
             result.push(tempObject);
         }
 
-
-        
         return result;
     }
 
@@ -131,9 +143,9 @@ class Instance {
 
 
     async _validateQueryMode() {
-        let queryModeValueSet = _.keys(this.url);
-        if ( !(_.includes(queryModeValueSet, this.queryMode)) ) {
-            throw `查詢模式必須是 ${_.toString(queryModeValueSet)}`;
+        const queryModeValueSet = _.keys(this.url);
+        if (!(_.includes(queryModeValueSet, this.queryMode))) {
+            console.log(`查詢模式必須是 ${_.toString(queryModeValueSet)}`);
         }
     }
 
@@ -145,24 +157,45 @@ class Instance {
             _.set(_.get(this.url, this.queryMode), key, urlTemplate);
         });
     }
-    
-    async _getMetadata(metadataURL) {
+
+    async _getMetadata(metadataURL: string) {
         return await this._getJsonResponseFromURL(metadataURL);
     }
 
-    async _getJsonResponseFromURL(url) {
-        let result = undefined;
-        let response = undefined;
+    async _getJsonResponseFromURL(inputUrl: string) {
+        let result;
+        let response;
 
         if (this.isUseToken) {
-            response = await fetch(url, {
-                headers: this.tokenObject
-            });
+            await axios({
+                method: "get",
+                url: inputUrl,
+                headers: this.tokenObject as AxiosRequestHeaders
+            }).then(
+                (res) => {
+                    response = _.cloneDeep(res.data);
+                }
+            ).catch(
+                (error) => {
+                    console.log(error);
+                }
+            )
         } else {
-            response = await fetch(url);
+            await axios({
+                method: "get",
+                url: inputUrl,
+            }).then(
+                (res) => {
+                    response = _.cloneDeep(res.data);
+                }
+            ).catch(
+                (error) => {
+                    console.log(error);
+                }
+            )
         }
 
-        result = await response.json();
+        result = _.cloneDeep(response);
 
         return result;
     }

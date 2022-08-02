@@ -1,4 +1,4 @@
-{
+export default {
     "Description": {
         "{s}": "ServerURL",
         "{study}": "StudyInstanceUID",

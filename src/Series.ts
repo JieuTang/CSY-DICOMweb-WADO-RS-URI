@@ -1,9 +1,22 @@
 import _ from "lodash";
-import fetch from 'node-fetch';
-import Instance from "./Instance.js"
+import axios, { AxiosRequestHeaders } from "axios";
+import Instance from "./Instance"
 
 class Series {
-    constructor(parameter, queryMode, uid) {
+
+    uid: string = "";
+    parameter: object = {};
+    queryMode: string = "";
+    url: object = {};
+
+    isUseToken: boolean = false;
+    tokenObject: object | null = null;
+
+    metadata: object | null | undefined = null;
+    codeOfSOPInstanceUID: string = "";
+    Instances: (string | Instance)[] | null = null;
+
+    constructor(parameter: object, queryMode: string, uid: string) {
         this.uid = uid;
 
         this.parameter = _.assign(parameter, { "{series}": uid });
@@ -21,7 +34,7 @@ class Series {
                 "metadata": "{s}/studies/{study}/series/{series}/metadata"
             }
         };
-        
+
         this.isUseToken = false;
         this.tokenObject = null;
 
@@ -39,19 +52,19 @@ class Series {
         if (isRenderInstances) this.Instances = await this._getInstances();
     }
 
-    async _getInstances() {
-        let result = [];
+    async _getInstances(): Promise<(string | Instance)[]> {
+        const result = [];
 
         for (let i = 0; i < _.toArray(this.metadata).length; i++) {
-            let instanceMetadata = _.get(this.metadata, i);
+            const instanceMetadata = _.get(this.metadata, i);
 
-            let tempObject = undefined;
+            let tempObject;
 
             if (_.has(instanceMetadata, this.codeOfSOPInstanceUID)) {
-                tempObject = new Instance(this.parameter, this.queryMode, _.first(_.get(_.get(instanceMetadata, this.codeOfSOPInstanceUID), "Value")));
+                tempObject = new Instance(this.parameter, this.queryMode, _.toString(_.first(_.get(_.get(instanceMetadata, this.codeOfSOPInstanceUID), "Value"))));
                 await tempObject.init();
             } else {
-                tempObject = `這個 Instance 沒有 ${this.codeOfSeriesInstanceUID}`;
+                tempObject = `這個 Instance 沒有 ${this.codeOfSOPInstanceUID}`;
             }
             result.push(tempObject);
         }
@@ -138,9 +151,9 @@ class Series {
 
 
     async _validateQueryMode() {
-        let queryModeValueSet = _.keys(this.url);
-        if ( !(_.includes(queryModeValueSet, this.queryMode)) ) {
-            throw `查詢模式必須是 ${_.toString(queryModeValueSet)}`;
+        const queryModeValueSet = _.keys(this.url);
+        if (!(_.includes(queryModeValueSet, this.queryMode))) {
+            console.log(`查詢模式必須是 ${_.toString(queryModeValueSet)}`);
         }
     }
 
@@ -153,23 +166,44 @@ class Series {
         });
     }
 
-    async _getMetadata(metadataURL) {
+    async _getMetadata(metadataURL: string) {
         return await this._getJsonResponseFromURL(metadataURL);
     }
 
-    async _getJsonResponseFromURL(url) {
-        let result = undefined;
-        let response = undefined;
+    async _getJsonResponseFromURL(inputUrl: string) {
+        let result;
+        let response;
 
         if (this.isUseToken) {
-            response = await fetch(url, {
-                headers: this.tokenObject
-            });
+            await axios({
+                method: "get",
+                url: inputUrl,
+                headers: this.tokenObject as AxiosRequestHeaders
+            }).then(
+                (res) => {
+                    response = _.cloneDeep(res.data);
+                }
+            ).catch(
+                (error) => {
+                    console.log(error);
+                }
+            )
         } else {
-            response = await fetch(url);
+            await axios({
+                method: "get",
+                url: inputUrl,
+            }).then(
+                (res) => {
+                    response = _.cloneDeep(res.data);
+                }
+            ).catch(
+                (error) => {
+                    console.log(error);
+                }
+            )
         }
 
-        result = await response.json();
+        result = _.cloneDeep(response);
 
         return result;
     }

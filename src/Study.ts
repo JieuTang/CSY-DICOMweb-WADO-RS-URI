@@ -1,11 +1,24 @@
 import _ from "lodash";
-import fetch from 'node-fetch';
-import Series from "./Series.js";
+import axios, { AxiosRequestHeaders } from "axios";
+import Series from "./Series";
 
 class Study {
-    constructor(serverURL, queryMode, uid) {
+
+    uid: string = "";
+    parameter: object = {};
+    queryMode: string = "";
+    url: object = {};
+
+    isUseToken: boolean = false;
+    tokenObject: object | null = null;
+
+    metadata: object | null | undefined = null;
+    codeOfSeriesInstanceUID: string = "";
+    Series: Series[] | null = null;
+
+    constructor(serverURL: string, queryMode: string, uid: string) {
         this.uid = uid;
-        
+
         this.parameter = {
             "{s}": serverURL,
             "{study}": uid
@@ -47,42 +60,42 @@ class Study {
         }
 
         for (let i = 0; i < _.toArray(this.Series).length; i++) {
-            let singleSeries = _.get(this.Series, i);
+            const singleSeries: Series = _.get(this.Series, i) as Series;
             await this.renderSpecificSeries(singleSeries.uid);
         }
     }
 
-    async renderSpecificSeries(seriesInstanceUID) {
+    async renderSpecificSeries(seriesInstanceUID: string) {
         if (_.isNull(this.Series)) {
             await this.querySeries();
         }
 
-        let seriesUidValueSet = [];
+        const seriesUidValueSet: string[] = [];
         _.forEach(this.Series, (singleSeries) => {
-            seriesUidValueSet.push(_.get(singleSeries, "uid"));
+            seriesUidValueSet.push(singleSeries.uid);
         });
 
-        if ( !(_.includes(seriesUidValueSet, seriesInstanceUID)) ) {
-            throw `此 seriesInstanceUID: ${seriesInstanceUID} 不存在於此 StudyInstanceUID 之中。`;
+        if (!(_.includes(seriesUidValueSet, seriesInstanceUID))) {
+            console.log(`此 seriesInstanceUID: ${seriesInstanceUID} 不存在於此 StudyInstanceUID 之中。`);
         }
 
         for (let i = 0; i < _.toArray(this.Series).length; i++) {
-            let singleSeries = _.get(this.Series, i);
+            const singleSeries: Series = _.get(this.Series, i) as Series;
             if (_.isEqual(singleSeries.uid, seriesInstanceUID)) {
-                let tempObject = await this._getSpecificSeries(seriesInstanceUID);
-                _.set(this.Series, i, tempObject);
+                const tempObject = await this._getSpecificSeries(seriesInstanceUID);
+                _.set(this.Series as object, i, tempObject);
             }
         }
     }
 
-    async _getSpecificSeries(seriesInstanceUID) {
-        let result = undefined;
+    async _getSpecificSeries(seriesInstanceUID: string) {
+        let result;
 
         for (let i = 0; i < _.toArray(this.Series).length; i++) {
-            let singleSeries = _.get(this.Series, i);
+            const singleSeries: Series = _.get(this.Series, i) as Series;
             if (_.isEqual(singleSeries.uid, seriesInstanceUID)) {
-                let tempObject = new Series(singleSeries.parameter, singleSeries.queryMode, singleSeries.uid);
-                let isRenderInstances = true;
+                const tempObject = new Series(singleSeries.parameter, singleSeries.queryMode, singleSeries.uid);
+                const isRenderInstances = true;
                 await tempObject.init(isRenderInstances);
                 result = tempObject;
             }
@@ -97,21 +110,21 @@ class Study {
     }
 
     async _getSeries() {
-        let result = [];
+        const result = [];
 
         for (let i = 0; i < _.toArray(this.metadata).length; i++) {
-            let singleSeriesMetadata = _.get(this.metadata, i);
-            
-            let tempObject = undefined;
+            const singleSeriesMetadata = _.get(this.metadata, i);
+
+            let tempObject;
 
             if (_.has(singleSeriesMetadata, this.codeOfSeriesInstanceUID)) {
-                tempObject = new Series(this.parameter, this.queryMode, _.first(_.get(_.get(singleSeriesMetadata, this.codeOfSeriesInstanceUID), "Value")));
+                tempObject = new Series(this.parameter, this.queryMode, _.toString(_.first(_.get(_.get(singleSeriesMetadata, this.codeOfSeriesInstanceUID), "Value"))));
                 await tempObject.init();
             } else {
                 tempObject = `這個 Series 沒有 ${this.codeOfSeriesInstanceUID}`;
             }
 
-            result.push(_.cloneDeep(JSON.parse(JSON.stringify(tempObject))));  
+            result.push(_.cloneDeep(JSON.parse(JSON.stringify(tempObject))));
         }
         return result;
     }
@@ -174,9 +187,9 @@ class Study {
 
 
     async _validateQueryMode() {
-        let queryModeValueSet = _.keys(this.url);
-        if ( !(_.includes(queryModeValueSet, this.queryMode)) ) {
-            throw `查詢模式必須是 ${_.toString(queryModeValueSet)}`;
+        const queryModeValueSet = _.keys(this.url);
+        if (!(_.includes(queryModeValueSet, this.queryMode))) {
+            console.log(`查詢模式必須是 ${_.toString(queryModeValueSet)}`);
         }
     }
 
@@ -189,23 +202,44 @@ class Study {
         });
     }
 
-    async _getMetadata(metadataURL) {
+    async _getMetadata(metadataURL: string) {
         return await this._getJsonResponseFromURL(metadataURL);
     }
 
-    async _getJsonResponseFromURL(url) {
-        let result = undefined;
-        let response = undefined;
+    async _getJsonResponseFromURL(inputUrl: string) {
+        let result;
+        let response;
 
         if (this.isUseToken) {
-            response = await fetch(url, {
-                headers: this.tokenObject
-            });
+            await axios({
+                method: "get",
+                url: inputUrl,
+                headers: this.tokenObject as AxiosRequestHeaders
+            }).then(
+                (res) => {
+                    response = _.cloneDeep(res.data);
+                }
+            ).catch(
+                (error) => {
+                    console.log(error);
+                }
+            )
         } else {
-            response = await fetch(url);
+            await axios({
+                method: "get",
+                url: inputUrl,
+            }).then(
+                (res) => {
+                    response = _.cloneDeep(res.data);
+                }
+            ).catch(
+                (error) => {
+                    console.log(error);
+                }
+            )
         }
 
-        result = await response.json();
+        result = _.cloneDeep(response);
 
         return result;
     }

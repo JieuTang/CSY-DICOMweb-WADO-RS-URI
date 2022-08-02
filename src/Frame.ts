@@ -1,7 +1,17 @@
 import _ from "lodash";
 
 class Frame {
-    constructor(parameter, queryMode, numberOfFrame) {
+
+    uid: string = "";
+    parameter: object = {};
+    queryMode: string = "";
+    url: object = {};
+
+    isUseToken: boolean = false;
+    tokenObject: object | null = null;
+
+
+    constructor(parameter: object, queryMode: string, numberOfFrame: string) {
         this.uid = numberOfFrame;
 
         this.parameter = _.assign(parameter, { "{frames}": numberOfFrame });
@@ -71,9 +81,9 @@ class Frame {
 
 
     async _validateQueryMode() {
-        let queryModeValueSet = _.keys(this.url);
-        if ( !(_.includes(queryModeValueSet, this.queryMode)) ) {
-            throw `查詢模式必須是 ${_.toString(queryModeValueSet)}`;
+        const queryModeValueSet = _.keys(this.url);
+        if (!(_.includes(queryModeValueSet, this.queryMode))) {
+            console.log(`查詢模式必須是 ${_.toString(queryModeValueSet)}`);
         }
     }
 

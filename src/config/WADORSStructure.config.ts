@@ -1,4 +1,4 @@
-{
+export default {
     "Description": {
         "{s}": "ServerURL",
         "{study}": "StudyInstanceUID",
@@ -25,4 +25,3 @@
         "RenderedURL": "{s}/studies/{study}/series/{series}/instances/{instance}/frames/{frames}/rendered"
     }
 }
-
