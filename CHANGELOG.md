@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/JieuTang/CSY-DICOMweb-WADO-RS-URI/compare/v0.3.0...v0.4.0) (2022-08-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* building with typescript.
+
+* change to generate by typescript ([c5b1e60](https://github.com/JieuTang/CSY-DICOMweb-WADO-RS-URI/commit/c5b1e601d5f7e090670798356f45dbe5223d68c4))
+
 ## [0.3.0](https://github.com/JieuTang/CSY-DICOMweb-WADO-RS-URI/compare/v0.2.0...v0.3.0) (2022-07-17)
 
 
