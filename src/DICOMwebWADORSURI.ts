@@ -1,7 +1,9 @@
 import _ from "lodash";
 import URL from "url-parse";
-import Series from "./Series";
 import Study from "./Study";
+import Series from "./Series";
+import Instance from "./Instance";
+import Frame from "./Frame";
 
 class DICOMwebWADORSURI {
   // Token
@@ -71,3 +73,5 @@ class DICOMwebWADORSURI {
 }
 
 export default DICOMwebWADORSURI;
+
+export type { Study, Series, Instance, Frame };
