@@ -5,16 +5,17 @@ import Frame from "./Frame";
 import { SeriesParameterType } from "./type/parameterType/SeriesParameterType";
 import { InstanceParameterType } from "./type/parameterType/InstanceParameterType";
 
+import { InstanceUrlType } from "./type/urlType/InstanceUrlType";
 class Instance {
   uid: string = "";
   parameter: InstanceParameterType;
   queryMode: string = "";
-  url: object = {};
+  url: InstanceUrlType;
 
   isUseToken?: boolean = false;
   tokenObject?: object;
 
-  metadata?: object;
+  metadata?: object[];
   codeOfNumberOfFrames: string;
   Frames?: Frame[];
 

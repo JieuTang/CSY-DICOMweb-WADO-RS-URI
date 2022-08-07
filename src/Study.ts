@@ -2,17 +2,18 @@ import _ from "lodash";
 import axios, { AxiosRequestHeaders } from "axios";
 import Series from "./Series";
 import { StudyParameterType } from "./type/parameterType/StudyParameterType";
+import { StudyUrlType } from "./type/urlType/StudyUrlType";
 
 class Study {
   uid: string;
   parameter: StudyParameterType;
   queryMode: string;
-  url?: object;
+  url?: StudyUrlType;
 
   isUseToken?: boolean = false;
   tokenObject?: object;
 
-  metadata?: object;
+  metadata?: object[];
   codeOfSeriesInstanceUID: string;
   Series?: Series[];
 

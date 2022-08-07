@@ -3,11 +3,12 @@ import _ from "lodash";
 import { InstanceParameterType } from "./type/parameterType/InstanceParameterType";
 import { FrameParameterType } from "./type/parameterType/FrameParameterType";
 
+import { FrameUrlType } from "./type/urlType/FrameUrlType";
 class Frame {
   uid: string;
   parameter: FrameParameterType;
   queryMode: string;
-  url: object;
+  url: FrameUrlType;
 
   isUseToken?: boolean;
   tokenObject?: object;

@@ -5,16 +5,18 @@ import Instance from "./Instance";
 import { StudyParameterType } from "./type/parameterType/StudyParameterType";
 import { SeriesParameterType } from "./type/parameterType/SeriesParameterType";
 
+import { SeriesUrlType } from "./type/urlType/SeriesUrlType";
+
 class Series {
   uid: string = "";
   parameter: SeriesParameterType;
   queryMode: string = "";
-  url: object = {};
+  url: SeriesUrlType;
 
   isUseToken?: boolean = false;
   tokenObject?: object;
 
-  metadata?: object;
+  metadata?: object[];
   codeOfSOPInstanceUID: string = "";
   Instances?: Instance[];
 
