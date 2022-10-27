@@ -10,14 +10,20 @@ class Study {
   queryMode: string;
   url?: StudyUrlType;
 
-  isUseToken?: boolean = false;
+  isUseToken: boolean = false;
   tokenObject?: object;
 
   metadata?: object[];
   codeOfSeriesInstanceUID: string;
   Series?: Series[];
 
-  constructor(serverURL: string, queryMode: string, uid: string) {
+  constructor(
+    serverURL: string,
+    queryMode: string,
+    uid: string,
+    isUseToken: boolean,
+    tokenObject?: object
+  ) {
     this.uid = uid;
 
     this.parameter = {
@@ -40,6 +46,9 @@ class Study {
     };
 
     this.codeOfSeriesInstanceUID = "0020000E";
+
+    this.isUseToken = isUseToken;
+    this.tokenObject = tokenObject;
   }
 
   async querySeries() {
@@ -100,7 +109,11 @@ class Study {
           singleSeries.uid
         );
         const isRenderInstances = true;
-        await tempObject.init(isRenderInstances);
+        await tempObject.init(
+          isRenderInstances,
+          this.isUseToken,
+          this.tokenObject
+        );
         result = tempObject;
       }
     }
@@ -132,7 +145,7 @@ class Study {
             )
           )
         );
-        await tempObject.init();
+        await tempObject.init(false, this.isUseToken, this.tokenObject);
         result.push(_.cloneDeep(JSON.parse(JSON.stringify(tempObject))));
       }
     }

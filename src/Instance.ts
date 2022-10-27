@@ -12,7 +12,7 @@ class Instance {
   queryMode: string = "";
   url: InstanceUrlType;
 
-  isUseToken?: boolean = false;
+  isUseToken: boolean = false;
   tokenObject?: object;
 
   metadata?: object[];
@@ -45,7 +45,10 @@ class Instance {
     this.codeOfNumberOfFrames = "00280008";
   }
 
-  async init() {
+  async init(isUseToken: boolean, tokenObject?: object) {
+    this.isUseToken = isUseToken;
+    this.tokenObject = tokenObject;
+
     await this._validateQueryMode();
     await this._replaceUrlParameter();
     this.metadata = _.first(

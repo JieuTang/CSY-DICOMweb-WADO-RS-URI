@@ -32,7 +32,9 @@ class DICOMwebWADORSURI {
     const study = new Study(
       this.serverURL,
       this.queryMode,
-      this.studyInstanceUID
+      this.studyInstanceUID,
+      this.isUseToken,
+      this.tokenObject
     );
     await study.querySeries();
     this.response = study;
@@ -42,7 +44,9 @@ class DICOMwebWADORSURI {
     const study = new Study(
       this.serverURL,
       this.queryMode,
-      this.studyInstanceUID
+      this.studyInstanceUID,
+      this.isUseToken,
+      this.tokenObject
     );
     await study.renderAllSeries();
     this.response = study;
@@ -52,7 +56,9 @@ class DICOMwebWADORSURI {
     const study = new Study(
       this.serverURL,
       this.queryMode,
-      this.studyInstanceUID
+      this.studyInstanceUID,
+      this.isUseToken,
+      this.tokenObject
     );
     await study.renderSpecificSeries(seriesInstanceUID);
     this.response = study;
@@ -69,6 +75,16 @@ class DICOMwebWADORSURI {
     result = serverURL.toString();
 
     return result;
+  }
+
+  async setUseToken(tokenObject: object) {
+    // tokenObject 不是 Object 就跳錯誤
+    if (!_.isObject(tokenObject)) {
+      console.log("tokenValue must be object type.");
+    }
+
+    this.isUseToken = true;
+    this.tokenObject = tokenObject;
   }
 }
 

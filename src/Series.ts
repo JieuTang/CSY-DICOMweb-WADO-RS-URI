@@ -13,7 +13,7 @@ class Series {
   queryMode: string = "";
   url: SeriesUrlType;
 
-  isUseToken?: boolean = false;
+  isUseToken: boolean = false;
   tokenObject?: object;
 
   metadata?: object[];
@@ -43,7 +43,14 @@ class Series {
     this.codeOfSOPInstanceUID = "00080018";
   }
 
-  async init(isRenderInstances = false) {
+  async init(
+    isRenderInstances = false,
+    isUseToken: boolean,
+    tokenObject?: object
+  ) {
+    this.isUseToken = isUseToken;
+    this.tokenObject = tokenObject;
+
     await this._validateQueryMode();
     await this._replaceUrlParameter();
     this.metadata = await this._getMetadata(
@@ -68,7 +75,7 @@ class Series {
             )
           )
         );
-        await tempObject.init();
+        await tempObject.init(this.isUseToken, this.tokenObject);
         result.push(tempObject);
       }
     }
