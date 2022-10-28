@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.4](https://github.com/JieuTang/CSY-DICOMweb-WADO-RS-URI/compare/v0.5.3...v0.5.4) (2022-10-28)
+
+
+### Bug Fixes
+
+* make *.js import XXX from "XXX.js" ([b790a4f](https://github.com/JieuTang/CSY-DICOMweb-WADO-RS-URI/commit/b790a4f9fea14f66f5b3b6e0dd308f36d7abec8c))
+
 ### [0.5.3](https://github.com/JieuTang/CSY-DICOMweb-WADO-RS-URI/compare/v0.5.2...v0.5.3) (2022-10-27)
 
 ### [0.5.2](https://github.com/JieuTang/CSY-DICOMweb-WADO-RS-URI/compare/v0.5.1...v0.5.2) (2022-08-07)
