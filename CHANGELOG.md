@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.6](https://github.com/JieuTang/CSY-DICOMweb-WADO-RS-URI/compare/v0.5.5...v0.5.6) (2022-10-28)
+
+
+### Bug Fixes
+
+* delete type:module in package.json ([3ac77cf](https://github.com/JieuTang/CSY-DICOMweb-WADO-RS-URI/commit/3ac77cf2bb8615199db7126d48a4ef0c296922d2))
+
 ### [0.5.5](https://github.com/JieuTang/CSY-DICOMweb-WADO-RS-URI/compare/v0.5.4...v0.5.5) (2022-10-28)
 
 ### [0.5.4](https://github.com/JieuTang/CSY-DICOMweb-WADO-RS-URI/compare/v0.5.3...v0.5.4) (2022-10-28)
